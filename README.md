@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# project refocus development
+# dashboard-core-web-client
+The source code for the core client facing dashboard user interface application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting started
 
-## Available Scripts
+### Dependencies
+This project requires NodeJS to be run locally. The preferred way to install is with 
+[NVM](https://github.com/nvm-sh/nvm#installing-and-updating). 
+This project works with Node version 12.16.1 and greater.
 
-In the project directory, you can run:
+This project also uses [yarn](https://classic.yarnpkg.com/en/docs/install) as the preferred method of managing node module dependencies as
+opposed to npm. 
 
-### `npm start`
+### Installation
+Clone this project on your local machine
+```
+$ git clone git@github.com:Project-REFOCUS/dashboard-core-web-client.git
+$ cd dashboard-core-web-client
+```
+To install the required dependencies:
+```
+$ yarn install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Development environment
+Build the project with esbuild:
+```
+$ yarn build
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Start the embedded server and start developing
+```
+$ yarn start
+```
 
-### `npm test`
+Then default port will be 8000. Access the web app in your browser at:
+```
+http://127.0.0.1:8000/
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You can change the port number by adding a port number argument to the `yarn start` command:
+```
+$ yarn start 8080
+```
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Then access the web app at 
+```
+http://127.0.0.1:8080/
+```

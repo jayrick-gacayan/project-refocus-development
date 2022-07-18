@@ -54,6 +54,7 @@ const ListGroupOptions = [
 ];
 
 const Sidebar = ({ setCategories, categories }) => {
+  console.log("categories", categories);
   
   const [ listOptions, setListOptions ] = useState(ListGroupOptions);
 

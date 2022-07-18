@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from '../../Project_Refocus_Logo.png';
-import Mask1 from '../../image_mask_1.png';
-import Mask2 from '../../image_mask_2.png';
+import maskOne from '../../image_mask_one.png';
+import maskTwo  from '../../image_mask_two.png';
 
 import { Navbar, Container, Nav, Image } from 'react-bootstrap';
 
@@ -42,15 +42,15 @@ const TopNavBar = () => {
         <div className="row g-0 w-100 h-100">
           <div className="col-9 h-100">
             <Image 
-              src={ Mask1 }
-              alt="mask-pic-one"
+              src={ maskOne }
+              alt="pic-mask-one"
               style={ imageToMaskStyles }
             />
           </div>
           <div className="col-3 h-100">
             <Image 
-              src={ Mask2 }
-              alt="mask-pic-two"
+              src={ maskTwo }
+              alt="pic-mask-two"
               style={ imageToMaskStyles }
             />
           </div>
