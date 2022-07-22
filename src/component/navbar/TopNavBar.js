@@ -1,16 +1,13 @@
 import React from 'react';
+import { Navbar, Container, Nav, Image } from 'react-bootstrap';
+
+/* Images */
 import Logo from '../../Project_Refocus_Logo.png';
 import maskOne from '../../image_mask_one.png';
 import maskTwo  from '../../image_mask_two.png';
 
-import { Navbar, Container, Nav, Image } from 'react-bootstrap';
-
 import './TopNavbar.scss';
 
-const imageToMaskStyles = {
-  width: "100%",
-  height: "100%"
-}
 const TopNavBar = () => {
   return (
     <>
@@ -23,7 +20,7 @@ const TopNavBar = () => {
                 alt="project-refocus-logo"
                 className="project-refocus-logo" />
           </div>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
             </Nav>
@@ -31,7 +28,7 @@ const TopNavBar = () => {
               <Nav.Item>
                 <span 
                   id="account-log-name"
-                  className="d-inline-block text-white">Jayrick Gacayan</span>
+                  className="d-inline-block">Jayrick Gacayan</span>
                 
               </Nav.Item>
             </Nav>
@@ -44,14 +41,14 @@ const TopNavBar = () => {
             <Image 
               src={ maskOne }
               alt="pic-mask-one"
-              style={ imageToMaskStyles }
+              className="imageMask-WxH1"
             />
           </div>
           <div className="col-3 h-100">
             <Image 
               src={ maskTwo }
               alt="pic-mask-two"
-              style={ imageToMaskStyles }
+              className="imageMask-WxH1"
             />
           </div>
         </div>

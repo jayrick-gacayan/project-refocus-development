@@ -5,6 +5,7 @@
     position: absolute;
     top: -36px;
     z-index: 1070;
+    border-bottom: none;
 
     @media (min-width: 576px){
       margin-left: -12px;
@@ -15,18 +16,21 @@
     }
 
     @media (min-width: 992px){
-      margin-left: 12px;
+      margin-left: 18px;
     }
 
     .nav-link {
       background-color: $custom-white;
-      color: $custom-black-1;
-      font-family: $fontOpenSans;
-      font-size: $fontSize14;
-      line-height: 19px;
-      font-style: normal;
+      @include fontStyle1($custom-black-1, $fontOpenSans, 14px, 19px, normal, 400);
+      &:hover, &:focus{
+        border-color: transparent;
+      }
     }
     
+    .nav-link.active{
+      color: $custom-blue-1;
+    }
+
     .nav-item{
       margin-right: 4px;
       border-radius: 4px 4px 0px 0px;
@@ -34,8 +38,3 @@
   }
 }
 
-#sidebar-container{
-  background-color: $custom-grey-4;
-  border-radius: 4px;
-  border: 1px solid $custom-grey-3;
-}

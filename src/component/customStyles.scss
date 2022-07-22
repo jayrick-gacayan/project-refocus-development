@@ -1,51 +1,83 @@
 @import '../CustomVariables.scss';
 
+#state-search.form-control{
+  background-color: #FFFFFF;
+  @include borderWRad1(1px, solid, $custom-grey-2, 4px);
+  @include fontStyle1($custom-black-1, $fontOpenSans, 14px, 19px, normal, 400);
+  &::placeholder{
+    @include fontStyle1($custom-grey-2, $fontOpenSans, 14px, 19px, normal, 400);
+  }
+  &:focus{
+    border-color: #28A1FF;
+    box-shadow: none;
+  }
+}
+
 label.form-label{
-  font-family: $fontOpenSans;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 19px;
-  color: $custom-black-1;
+  @include fontStyle1($custom-black-1, $fontOpenSans, 14px, 19px, normal, 400);
+}
+
+.icon-style-1{
+  @include wxhStyle1(20px, 20px);
+  color: $custom-grey-1; 
 }
 
 .text-blue-3{
   color: $custom-blue-3;
 }
 
-.icon-style-1{
-  width: 20px;
-  height: 20px; 
-  color: $custom-grey-1; 
-}
-
 .form-check{
-  .form-check-label{
-    vertical-align: middle;
-    padding-left: 0.5rem;
-  }
-}
 
-.option-react-select-style-1{
-  font-family: $fontOpenSans;
-  font-size: $fontSize14;
-  font-weight: 400;
-  font-style: normal;
-  line-height: 19px;
+  .form-check-input{
+    @include borderWRad1(1px, solid, $custom-grey-2, 4px);
+    @include wxhStyle1(15px, 15px);
+    cursor: pointer;
+    vertical-align: "middle";
+
+    &:focus{
+      outline: 0;
+      box-shadow: none;
+    }
+
+    &:checked{
+      background-color: $custom-blue-4;
+    }
+
+    &:checked[type=checkbox]{
+      background-image: none;
+    }
+
+    &:disabled {
+      pointer-events: inherit;
+      cursor: not-allowed;
+      ~ .form-check-label{
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .form-check-label{
+    padding-left: 0.2rem;
+    cursor: pointer;     
+  }
+  
 }
 
 .ellipse-style-1{
-  width: 295px;
-  height: 295px;
-  background-color: #DFE6E9;
+  @include wxhStyle1(295px, 295px);
+  background-color: $custom-grey-3;
   border-radius: 50%;
 }
 
 .paragraph-style-1{
-  font-family: $fontOpenSans;
-  color : $custom-grey-2;
-  font-size: 24px;
-  line-height: 33px;
-  font-style: normal;
-  font-weight: 400;
+  @include fontStyle1($custom-grey-1, $fontOpenSans, 24px, 33px, normal, 400);
+}
+
+.custom-style-1{
+  @include fontStyle1($custom-grey-1, $fontLato, 12px, 15px, normal, 400);
+}
+
+.plusLgStyle1{
+  @include wxhStyle1(15px, 15px);
+  color: $custom-black-2;
 }

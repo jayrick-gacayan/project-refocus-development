@@ -6,52 +6,41 @@
 }
 
 .logo-container{
-  width: 179px;
-  height: 74px;
-  position: absolute;
-  left: 1.25%;
-  right: 86.32%;
-  top: 3.9%;
+  @include wxhStyle1(179px, 74px);
+  @include posAbsStyle1(absolute, 6.25%, 1.25%, 86.32%, 0);
   background-color: $custom-white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  bottom: 0%;
   z-index: 1080;
 }
 
 .project-refocus-logo{
-  width: 148px;
-  height: 55px;
+  @include wxhStyle1(148px, 55px);
   border-radius: 4px;
-  position: absolute;
-  left: 8%;
-  top: 15.58%;
-  bottom: 12.99%;
-  right: 87.36%;
+  @include posAbsStyle1(absolute, 15.58%, 8%, 87.36%, 12.99%);
 }
 
 .banner-mask-container{
-  height: 88px;
-  width: 100%;
+  @include wxhStyle1(100%, 88px);
   position: relative;
 }
 
 .banner-mask-overlay{
+  @include wxhStyle1(100%, 100%);
   position: absolute;
   z-index: 1050;
   top: 0;
   opacity: 0.4;
-  height: 100%;
-  width: 100%;
   background-color: $custom-grey-3;
   border: 1px solid $custom-grey-3;
 
   mix-blend-mode: normal;
 }
 
+.imageMask-WxH1{
+  @include wxhStyle1(100%, 100%);
+}
+
 #account-log-name{
-  font-family: $fontLato;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 17px;
+  @include fontStyle1($custom-white, $fontLato, 14px, 17px, normal, 400);
 }

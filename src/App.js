@@ -8,18 +8,12 @@ const App = () => {
     <>
       <TopNavbar />
       <Container fluid
-        className="g-lg-0 bg-white"
-        style={{
-          position: "relative"
-        }}>
-        <Container 
-          fluid
+        className="g-lg-0 bg-white position-relative">
+        <Container fluid
           className="g-lg-0 bg-white">
           <NavbarTabs />
         </Container>
-        
       </Container>
-      
     </>
   );
 }

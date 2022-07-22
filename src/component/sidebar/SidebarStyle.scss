@@ -26,13 +26,8 @@
 
 #sidebarNavigation{
   .list-group-item{
-    border: 1px solid $custom-grey-3;
-    border-radius: 0;
-    font-family: $fontLato;
-    font-size: $fontSize18;
-    font-weight: $fontWeight400;
-    line-height: 22px;
-    font-style: normal;
+    @include borderWRad1(1px, solid, $custom-grey-3, 0);
+    @include fontStyle1(inherit, $fontLato, 18px, 22px, normal, 400);
     padding: 0.8rem;
   }
 
@@ -41,13 +36,8 @@
     color: $custom-grey-1
   }
 
-  .category-info-select-max-list-group-item{
-    font-family: $fontLato;
-    font-size: $fontSize14;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 17px;
+  .list-group-item.category-info-select-max-list-group-item{
+    @include fontStyle1($custom-grey-1, $fontLato, 14px, 17px, normal, 400);
     background-color: inherit;
-    color: $custom-grey-1;
   }
 }

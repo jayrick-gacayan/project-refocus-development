@@ -31,8 +31,8 @@ const ListGroupOptions = [
     showCollapse: false
   },
   {
-    key: "Police Shootings",
-    label: "Police Shootings",
+    key: "Police shootings",
+    label: "Police shootings",
     borderLeftColor: "green-2",
     showCollapse: false
   },
@@ -54,14 +54,15 @@ const ListGroupOptions = [
 ];
 
 const Sidebar = ({ setCategories, categories }) => {
-  console.log("categories", categories);
   
   const [ listOptions, setListOptions ] = useState(ListGroupOptions);
 
   const handleCollapseToggle = (type) => {
 
-    if((categories.length === 2 && categories.includes(type)) || 
+    if((categories.length === 2 
+      && categories.some((value) => { return value.categoryName === type })) || 
       categories.length < 2){
+       
       setListOptions(
         listOptions.map(
           (listItem) => {
@@ -70,14 +71,17 @@ const Sidebar = ({ setCategories, categories }) => {
             if(listItem.key === type)
             {
               setCategories(
-                (categories) => {
-                  return showCollapse ? 
-                  [ ...categories, type ] :
-                  categories.filter((category) => { return category !== type })
-                }
-                
+                showCollapse ? 
+                [ ...categories, 
+                  {
+                    categoryName: type,
+                    dataOrientation: "",
+                    race: "",
+                    geography: []
+                  }
+                ] : categories.filter((category) => { return category.categoryName !== type })
               )
-            
+
               return ({ ...listItem, showCollapse: !listItem.showCollapse })
             }
             
@@ -89,9 +93,60 @@ const Sidebar = ({ setCategories, categories }) => {
     else alert("Over the limit");
   };
   
+  const handleDataOrientationChange = (type, value) => {
+    setCategoryData(type, { dataOrientation: value });
+  }
+
+  const handleRaceChange = (type, value) => {
+    setCategoryData(type, { race: value });
+  }
+
+  const handleGeographyChange = (type, value) => {
+    setCategoryData(type, { geography: value });
+  }
+
+  const handleAddSameCategory = (type) => {
+    const index = 
+      listOptions
+        .map( (listOpt) => listOpt.key )
+        .indexOf(type);
+    
+    const sliceEnd = listOptions.slice(index + 1);
+    const sliceStart = listOptions.slice(0, index + 1); 
+    
+    setCategories([...categories, 
+      {
+        categoryName: `${ type }1`,
+        dataOrientation: "",
+        race: "",
+        geography: []
+      }
+    ])
+
+    setListOptions([ 
+      ...sliceStart, 
+      { 
+        key: `${ type }1`,
+        label: `${ type }`,
+        borderLeftColor: "hotPink",
+        showCollapse: true
+      },
+      ...sliceEnd
+    ]);
+  }
+  function setCategoryData(type, objectData){
+    setCategories(
+      categories.map((category) => {
+        if(category.categoryName === type)
+          return { ...category, ...objectData }
+        
+        return category;
+      })
+    )
+  }
+
   return(
-    <ListGroup
-      id="sidebarNavigation">
+    <ListGroup id="sidebarNavigation">
       <ListGroup.Item 
         className="category-info-select-max-list-group-item">
         Select max. 2 categories
@@ -108,9 +163,16 @@ const Sidebar = ({ setCategories, categories }) => {
                   showCollapse={ listGroupItem.showCollapse }
                   type={ listGroupItem.key }
                   label={ listGroupItem.label }
+                  length={ categories.length }
+                  handleAddSameCategory={ handleAddSameCategory }
+                  categories={ categories }
                 />
                 <CollapseContent 
                   showCollapse={ listGroupItem.showCollapse }
+                  type={ listGroupItem.key }
+                  handleDataOrientationChange={ handleDataOrientationChange }
+                  handleRaceChange={ handleRaceChange }
+                  handleGeographyChange={ handleGeographyChange }
                 />
               </ListGroup.Item>
             )

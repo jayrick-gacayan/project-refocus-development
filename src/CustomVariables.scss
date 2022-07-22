@@ -15,10 +15,39 @@ $custom-black-1: #2D3436;
 $custom-blue-1: #72BBF4;
 $custom-blue-2: #D3ECFF;
 $custom-blue-3: #086EBE;
+$custom-blue-4: #28A1FF;
+$custom-black-2: #000000;
 
-/* fonts */
+/* font family */
 $fontLato: 'Lato', sans-serif;
 $fontOpenSans: 'Open Sans', sans-serif;
-$fontSize14: 14px;
-$fontSize18: 18px;
-$fontWeight400: 400;
+
+/* mixins methods */
+@mixin fontStyle1($color, $fontFamily, $fontSize, $lineHeight, $fontStyle, $fontWeight){
+  font-family: $fontFamily;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  font-style: $fontStyle;
+  color: $color;
+  line-height: $lineHeight;
+}
+
+@mixin posAbsStyle1($position, $top, $left, $right, $bottom){
+  position: $position;
+  top: $top;
+  left: $left;
+  right: $right;
+  bottom: $bottom
+}
+
+/* width x height */
+@mixin wxhStyle1($width, $height){
+  width: $width;
+  height: $height;
+}
+
+/* border with border-radius */
+@mixin borderWRad1($width, $style, $color, $borderRadius){
+  border: $width $style $color;
+  border-radius: $borderRadius;
+}
