@@ -1,105 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Collapse } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
 import ReactSelect, { components, createFilter } from 'react-select';
 import { XLg } from 'react-bootstrap-icons';
 
+import { dataOrientationOption, raceOption, stateOptions } from '../../data';
 import { fontStyles, customFontStyles } from '../customFontStyleHelper';
 
 import '../customStyles.scss';
 import '../../CustomVariables.scss';
 
-const dataOrientationOption = [
+const groupStateOptions = [
   {
-    value: "dailyPer100k",
-    label: "Daily per 100,000"
-  },
-  {
-    value: "weeklyPer100k",
-    label: "Weekly per 100,000"
-  },
-  {
-    value: "monthlyPer1M",
-    label: "Monthly per 1,000,000"
+    label: "United States",
+    options: stateOptions
   }
-];
-
-const raceOption = [
-  {
-    value: 'All',
-    label: 'All'
-  },
-  {
-    value: 'race1',
-    label: 'Race 1'
-  },
-  {
-    value: 'race2',
-    label: 'Race 2'
-  }
-];
-
-const stateOptions = [
-  { value: 'AL', label: 'Alabama' },
-  { value: 'AK', label: 'Alaska' },
-  { value: 'AS', label: 'American Samoa' },
-  { value: 'AZ', label: 'Arizona' },
-  { value: 'AR', label: 'Arkansas' },
-  { value: 'CA', label: 'California' },
-  { value: 'CO', label: 'Colorado' },
-  { value: 'CT', label: 'Connecticut' },
-  { value: 'DE', label: 'Delaware' },
-  { value: 'DC', label: 'District Of Columbia' },
-  { value: 'FM', label: 'Federated States Of Micronesia' },
-  { value: 'FL', label: 'Florida' },
-  { value: 'GA', label: 'Georgia' },
-  { value: 'GU', label: 'Guam' },
-  { value: 'HI', label: 'Hawaii' },
-  { value: 'ID', label: 'Idaho' },
-  { value: 'IL', label: 'Illinois' },
-  { value: 'IN', label: 'Indiana' },
-  { value: 'IA', label: 'Iowa' },
-  { value: 'KS', label: 'Kansas' },
-  { value: 'KY', label: 'Kentucky' },
-  { value: 'LA', label: 'Louisiana' },
-  { value: 'ME', label: 'Maine' },
-  { value: 'MH', label: 'Marshall Islands' },
-  { value: 'MD', label: 'Maryland' },
-  { value: 'MA', label: 'Massachusetts' },
-  { value: 'MI', label: 'Michigan' },
-  { value: 'MN', label: 'Minnesota' },
-  { value: 'MS', label: 'Mississippi' },
-  { value: 'MO', label: 'Missouri' },
-  { value: 'MT', label: 'Montana' },
-  { value: 'NE', label: 'Nebraska' },
-  { value: 'NV', label: 'Nevada' },
-  { value: 'NH', label: 'New Hampshire' },
-  { value: 'NJ', label: 'New Jersey' },
-  { value: 'NM', label: 'New Mexico' },
-  { value: 'NY', label: 'New York' },
-  { value: 'NC', label: 'North Carolina' },
-  { value: 'ND', label: 'North Dakota' },
-  { value: 'MP', label: 'Northern Mariana Islands' },
-  { value: 'OH', label: 'Ohio' },
-  { value: 'OK', label: 'Oklahoma' },
-  { value: 'OR', label: 'Oregon' },
-  { value: 'PW', label: 'Palau' },
-  { value: 'PA', label: 'Pennsylvania' },
-  { value: 'PR', label: 'Puerto Rico' },
-  { value: 'RI', label: 'Rhode Island' },
-  { value: 'SC', label: 'South Carolina' },
-  { value: 'SD', label: 'South Dakota' },
-  { value: 'TN', label: 'Tennessee' },
-  { value: 'TX', label: 'Texas' },
-  { value: 'UT', label: 'Utah' },
-  { value: 'VT', label: 'Vermont' },
-  { value: 'VI', label: 'Virgin Islands' },
-  { value: 'VA', label: 'Virginia' },
-  { value: 'WA', label: 'Washington' },
-  { value: 'WV', label: 'West Virginia' },
-  { value: 'WI', label: 'Wisconsin' },
-  { value: 'WY', label: 'Wyoming' },
-];
+]
 
 const stateMenuListComponent = ({ selectProps, ...props }) => {
   const { onInputChange, stateInputValue, onMenuInputFocus } = selectProps;
@@ -111,9 +27,14 @@ const stateMenuListComponent = ({ selectProps, ...props }) => {
     "aria-labelledby": selectProps["aria-labelledby"]
   };
 
+  function focusAndStopProp(e){
+    e.stopPropagation();
+    e.target.focus();
+  }
+
   return (
     <>
-      <Form.Group className="p-2">
+      <Form.Group className="px-2 py-1">
         <Form.Control type="text"
           id="state-search"
           autoCorrect="off"
@@ -125,33 +46,52 @@ const stateMenuListComponent = ({ selectProps, ...props }) => {
               action: "input-change"
             })
           }
-          onMouseDown={(e) => {
-            e.stopPropagation();
-            e.target.focus();
-          }}
-          onTouchEnd={(e) => {
-            e.stopPropagation();
-            e.target.focus();
-          }}
+          onMouseDown={(e) => { focusAndStopProp(e); }}
+          onTouchEnd={(e) => { focusAndStopProp(e); }}
           onFocus={ onMenuInputFocus }
           placeholder="Search"
           { ...ariaAttributes } />
       </Form.Group>
-      <components.MenuList {...props} selectProps={selectProps}>
+      <components.MenuList { ...props } selectProps={ selectProps }>
         { props.children }
       </components.MenuList>
     </>
   )
 }
 
-const stateOptionComponent = (props) => {
+const stateGroupHeadingComponent = (props) => {
+  
+  return(
+    <>
+      <components.GroupHeading { ...props }>
+        <div className="d-flex justify-content-between align-items-center">
+          <Form.Check>
+            <Form.Check.Input
+              id={ props.data.label }
+              type="checkbox"
+              onChange={ () => null }/>
+            <Form.Check.Label
+              htmlFor={ props.data.label }
+              style={
+                { ...customFontStyles({ ...fontStyles, color: "#000000" }) }
+              }>{ props.children }
+            </Form.Check.Label>
+          </Form.Check>
+        </div>
+      </components.GroupHeading>
+      <hr className="hr-style-1" />
+    </>
+  );
+}
+const stateOptionComponent = ({ selectProps, ...props }) => {
+  const { stateInputValue } = selectProps;
   return (
     <div>
-      <components.Option {...props}>
+      <components.Option { ...props } selectProps={ selectProps }>
         <div className="d-flex justify-content-between align-items-center">
-          <Form.Check 
-            id={ props.label }>
-            <Form.Check.Input 
+          <Form.Check>
+            <Form.Check.Input
+              id={ props.label }
               type="checkbox" 
               checked={ props.isSelected }
               onChange={ () => null }/>
@@ -159,7 +99,21 @@ const stateOptionComponent = (props) => {
               htmlFor={ props.label }
               style={
                 { ...customFontStyles({ ...fontStyles, color: "#000000" }) }
-              }>{ props.label }</Form.Check.Label>
+              }>{ 
+                stateInputValue === "" 
+                ? props.label : 
+                ( 
+                  <>
+                    <strong 
+                      style={{ 
+                        ...customFontStyles({ ...fontStyles, fontWeight: 700 })
+                      }}>{ (props.label).substr(0, stateInputValue.length) }</strong>
+                    { (props.label).substr(stateInputValue.length) }
+                  </>
+                  
+                )
+              }
+            </Form.Check.Label>
           </Form.Check>
         </div>
       </components.Option>
@@ -169,12 +123,14 @@ const stateOptionComponent = (props) => {
 
 const stateValueContainerComponent = ({ children, selectProps, ...props }) => {
   return (
-    <components.ValueContainer {...props} selectProps={selectProps}>
+    <components.ValueContainer { ...props } selectProps={ selectProps }>
       { 
         React.Children.map(children, 
           (child, index) => {
             if(index <= 5)
               return child;
+            
+            return;
           }
         )
       }
@@ -198,7 +154,7 @@ const stateDropdownIndicatorComponent = (props) => {
                 lineHeight: "14px",
                 color: "#636E72"
               }),
-              padding: "8px"
+              padding: "4px"
             }}>
             { `${ stateValues.length - 6 } +` }
           </div>
@@ -210,11 +166,7 @@ const stateDropdownIndicatorComponent = (props) => {
 const stateMultiValueRemoveComponent = (props) => {
   return(
     <components.MultiValueRemove { ...props }>
-      <XLg style={{
-        width: "11px",
-        height: "11px",
-        color: "#000000"
-      }}/>
+      <XLg className="remove-tag-icon-1" />
     </components.MultiValueRemove>
   );
 }
@@ -244,7 +196,8 @@ const ReactSelectStyle1 = {
     ...customFontStyles({ ...fontStyles, color: "#000000" }),
     backgroundColor: state.isSelected ? "#72BBF4" : base.backgroundColor,
     "&:hover": { 
-      backgroundColor: state.isSelected ? "#086EBE" : base.backgroundColor                                     
+      backgroundColor: state.isSelected ? "#086EBE" : base.backgroundColor,
+      cursor: "pointer"                                    
     }
   }),
   placeholder: (base) => ({
@@ -253,12 +206,35 @@ const ReactSelectStyle1 = {
   })
 }
 
+
+const PlaceHolderComponent = ({ selectProps, ...props}) => {
+  const { placeholderContent } = selectProps;
+  return (
+    <components.Placeholder { ...props } selectProps={ selectProps }>
+      { placeholderContent }
+    </components.Placeholder>
+  )
+}
+
 const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, handleRaceChange, handleGeographyChange }) => {
   const [isStateFocused, setIsStateFocused] = useState(false);
   const [stateInputValue, setStateInputValue] = useState("");
+  
   const [ dataOrientation, setDataOrientation] = useState({});
   const [ race, setRace ] = useState({});
+  const [ placeState, setPlaceState ] = useState([]);
 
+  useEffect(
+    () => {
+      if(!showCollapse){
+        setDataOrientation({});
+        setRace({});
+        setPlaceState([]);
+      }
+    }
+    ,[showCollapse]
+  );
+  
   return (
     <Collapse in={ showCollapse } >
       <div>
@@ -271,12 +247,13 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
           <ReactSelect
             options={ dataOrientationOption }
             defaultValue={ dataOrientationOption[0] }
-            styles={ ReactSelectStyle1 }
+            styles={{ ...ReactSelectStyle1 }}
+            placeholder="Select.."
             onChange={ (selected) => {
               setDataOrientation(selected);
               handleDataOrientationChange(type, selected.value);
             }}
-            placeholder="Data Orientation "
+            value={ dataOrientation }
           />
         </div>
         {/* end: Data Orientation */}
@@ -290,11 +267,13 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
             options={ raceOption }
             defaultValue={ raceOption[0] }
             styles={ ReactSelectStyle1 }
+            placeholder="Select.."
             onChange={ (selected) => {
               setRace(selected);
               handleRaceChange(type, selected.value);
             }}
-            placeholder="Race "
+            value={ race }
+            
           />
         </div>
         {/* end: Race */}
@@ -305,7 +284,7 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
             Geography
           </Form.Label>
           <ReactSelect 
-            options={ stateOptions }
+            options={ groupStateOptions }
             isMulti
             components={{
               MenuList: stateMenuListComponent,
@@ -313,14 +292,20 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
               MultiValueRemove: stateMultiValueRemoveComponent,
               ValueContainer: stateValueContainerComponent,
               DropdownIndicator: stateDropdownIndicatorComponent,
-              ClearIndicator: () => null
+              ClearIndicator: () => null,
+              GroupHeading: stateGroupHeadingComponent
             }}
+            isDisabled={ 
+              Object.keys(dataOrientation).length === 0 &&
+              Object.keys(race).length === 0
+            }
             styles={{
               control: (base) => ({
                 ...base,
                 "&:hover": {
                   backgroundColor: "#D3ECFF"
-                }
+                },
+                minHeight: "30px"
               }),
               dropdownIndicator: (base) => ({
                 ...base,
@@ -329,6 +314,10 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
               indicatorSeparator:(base) => ({
                 ...base,
                 width: 0
+              }),
+              groupHeading: (base) => ({
+                ...base,
+                textTransform: "none"
               }),
               multiValue: (base) => ({
                 ...base,
@@ -346,7 +335,8 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
                 ...customFontStyles({ ...fontStyles, color: "#000000" }),
                 backgroundColor: state.isSelected ? "#72BBF4" : base.backgroundColor,
                 "&:hover": { 
-                  backgroundColor: state.isSelected ? "#086EBE" : base.backgroundColor                                     
+                  backgroundColor: state.isSelected ? "#086EBE" : base.backgroundColor,
+                  cursor: "pointer"                                   
                 }
               }),
               placeholder: (base) => ({
@@ -361,10 +351,11 @@ const CollapseContent = ({ showCollapse, type, handleDataOrientationChange, hand
             closeMenuOnSelect={ false }
             onMenuInputFocus={() => setIsStateFocused(true)}
             onChange={(options) => {
-              handleGeographyChange(type, options.map((option) => option.value));
+              setPlaceState(options);
               setIsStateFocused(false)
+              handleGeographyChange(type, options.map((option) => option.value));
             }}
-            
+            value={ placeState }
             onInputChange={(value) => setStateInputValue(value)}
             {...{
               menuIsOpen: isStateFocused || undefined,

@@ -43,3 +43,8 @@
 #period-custom:hover{
   background-color: "#D3ECFF";
 }
+
+#data-content-container{
+  @include borderWRad1(1px, solid, $custom-grey-3, 4px);
+  height: 540px;
+}
